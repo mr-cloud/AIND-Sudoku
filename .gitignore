@@ -4,3 +4,7 @@ __pycache__
 .idea/
 *.zip
 *.json
+sudoku-400.zip
+sudoku-417.zip
+sudoku-result-400.json
+sudoku-result-417.json

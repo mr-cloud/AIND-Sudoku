@@ -131,6 +131,7 @@ def reduce_puzzle(values):
         values = only_choice(values)
         solved_values_after = len([box for box in values.keys() if len(values[box]) == 1])
         stalled = solved_values_before == solved_values_after
+        # forward checking
         if len([box for box in values.keys() if len(values[box]) == 0]):
             return False
     return values
@@ -145,6 +146,7 @@ def search(values):
     if all(len(values[s]) == 1 for s in boxes):
         return values  ## Solved!
     # Choose one of the unfilled boxes with the fewest possibilities
+    # heuristic: minimum remaining values
     n, s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
     # Now use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer!
     # ori_val = values[s]
@@ -156,6 +158,7 @@ def search(values):
     # values[s] = ori_val # cannot recover since we had applied constrains propogation.
 
     # Now use recurrence to solve each one of the resulting sudokus, and
+    # backtracking search
     for value in values[s]:
         new_sudoku = values.copy()
         new_sudoku[s] = value
